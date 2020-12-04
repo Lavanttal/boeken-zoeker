@@ -1,0 +1,8 @@
+{
+  "name": "BoekenZoeker",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue",
+  "id": "93e6e6db"
+}
