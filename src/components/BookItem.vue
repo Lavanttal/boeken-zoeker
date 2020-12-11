@@ -62,12 +62,11 @@ export default {
     };
   },
   mounted() {
+    this.myArray = [];
     const storedData = localStorage.getItem(["items"]);
     if (storedData) {
       const ArrayData = JSON.parse(storedData);
       this.myArray = ArrayData;
-    } else {
-      this.myArray = [];
     }
   },
   computed: {
@@ -76,7 +75,7 @@ export default {
     },
   },
   methods: {
-    greet: (event) => {
+    greet(event) {
       console.log(this.myArray);
       console.log("hallo");
       // `this` inside methods point to the Vue instance
