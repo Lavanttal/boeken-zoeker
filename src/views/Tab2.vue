@@ -24,12 +24,12 @@
           <div>
             <ion-item>
               <ion-label position="stacked" color="primary" for="order"
-                >Order by</ion-label
+                >Sorteren op basis van</ion-label
               >&nbsp;
               <ion-select name="order" v-model="orderBy" @change="search">
-                <ion-select-option value="newest">Newest</ion-select-option>
+                <ion-select-option value="newest">Publicatiedatum</ion-select-option>
                 <ion-select-option value="relevance"
-                  >Relevance</ion-select-option
+                  >Relevantie</ion-select-option
                 >
               </ion-select>
             </ion-item>

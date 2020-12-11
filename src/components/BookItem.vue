@@ -1,40 +1,50 @@
 <template>
-  <ion-card 
-    class="carditem"
-  >
-    <a :href="volumeInfo.previewLink" target="_blank">
-      <template v-if="volumeInfo.imageLinks">
-        <img :src="volumeInfo.imageLinks.thumbnail" :alt="volumeInfo.title" />
-      </template>
-      <template v-else>
-        <img
-          src="https://islandpress.org/sites/default/files/400px%20x%20600px-r01BookNotPictured.jpg"
+  <ion-card class="carditem">
+    <template v-if="volumeInfo.imageLinks">
+      <a :href="volumeInfo.previewLink" target="_blank">
+        <ion-img
+          :src="volumeInfo.imageLinks.thumbnail"
           :alt="volumeInfo.title"
-          width="128"
         />
-      </template>
-      <ion-card-content>
-        <ion-card-title>{{ volumeInfo.title }}</ion-card-title>
+      </a>
+    </template>
+    <template v-else>
+      <img
+        src="https://islandpress.org/sites/default/files/400px%20x%20600px-r01BookNotPictured.jpg"
+        :alt="volumeInfo.title"
+        width="128"
+      />
+    </template>
+    <ion-card-content>
+      <ion-card-title>{{ volumeInfo.title }}</ion-card-title>
+      <ion-label>{{ volumeInfo.description }}</ion-label>
 
-        <span v-if="!volumeInfo.authors">No authors to display</span>
-        <span v-else>
-          By
-          <span v-for="(author, index) in volumeInfo.authors" :key="index">
-            <em>
-              {{
-                index + 1 !== volumeInfo.authors.length &&
-                index + 1 !== book.volumeInfo.authors.length - 1
-                  ? author + ", "
-                  : index + 1 == book.volumeInfo.authors.length &&
-                    index + 1 !== 1
-                  ? " and " + author
-                  : author
-              }}
-            </em>
-          </span>
+      <span v-if="!volumeInfo.authors">No authors to display</span>
+      <span v-else>
+        By
+        <span v-for="(author, index) in volumeInfo.authors" :key="index">
+          <em>
+            {{
+              index + 1 !== volumeInfo.authors.length &&
+              index + 1 !== book.volumeInfo.authors.length - 1
+                ? author + ", "
+                : index + 1 == book.volumeInfo.authors.length && index + 1 !== 1
+                ? " and " + author
+                : author
+            }}
+          </em>
         </span>
-      </ion-card-content>
-    </a>
+      </span>
+      <br />
+      <ion-button
+        v-on:click="greet"
+        position="center"
+        color="primary"
+        shape="round"
+        size="default"
+        >Toevoegen aan plank</ion-button
+      >
+    </ion-card-content>
   </ion-card>
 </template>
 
@@ -46,28 +56,52 @@ export default {
       required: true,
     },
   },
+  data() {
+    return {
+      myArray: [],
+    };
+  },
+  mounted() {
+    const storedData = localStorage.getItem(["items"]);
+    if (storedData) {
+      const ArrayData = JSON.parse(storedData);
+      this.myArray = ArrayData;
+    } else {
+      this.myArray = [];
+    }
+  },
   computed: {
     volumeInfo() {
       return this.book.volumeInfo;
     },
   },
-      getColor() {
+  methods: {
+    greet: (event) => {
+      console.log(this.myArray);
+      console.log("hallo");
+      // `this` inside methods point to the Vue instance
+      alert("Hello " + this.volumeInfo.title + "!");
+      const bookInfo = this.volumeInfo;
+      this.myArray.push(bookInfo);
+      localStorage.setItem(["items"], JSON.stringify(this.storedData));
+    },
+    getColor() {
       const colorsArray = [
         "primary",
         "secondary",
         "danger",
         "warning",
-        "success"
+        "success",
       ];
-      const random = colorsArray[Math.floor(Math.random() * colorsArray.length)];
+      const random =
+        colorsArray[Math.floor(Math.random() * colorsArray.length)];
       return random;
     },
+  },
 };
 </script>
 
 <style scoped>
-
-
 ul {
   padding: 0;
 }
@@ -84,4 +118,8 @@ ul li:first-child {
   box-shadow: 0 1px 1px 1px #0e0e0e78;
 }
 
+ion-img {
+  width: 100%;
+  height: 350px;
+}
 </style>

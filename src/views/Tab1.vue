@@ -14,8 +14,9 @@
       <ion-card>
         <ion-card-content>
           <ion-card-header>
-            <h1>Most sold today:</h1>
-            <h1>{{ bestSellers }}</h1>
+            <h1>Meest verkochte boek vandaag:</h1>
+            <h2>{{ bestSellers }}</h2>
+            <h2>Auteur: {{ bestSellersAuthor }}</h2>
             <p>ISBN: {{ bestSellersISBN }}</p>
             <img :src="bestSellersImage" />
           </ion-card-header>
@@ -52,6 +53,8 @@ export default defineComponent({
         .then((response) => {
           console.log(response.data.results[0]);
           this.bestSellers = response.data.results[0].book_details[0].title;
+          this.bestSellersAuthor =
+            response.data.results[0].book_details[0].author;
           this.bestSellersISBN = response.data.results[0].isbns[1].isbn13;
           console.log(this.bestSellers);
           axios
