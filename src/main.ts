@@ -1,4 +1,4 @@
-import { createApp } from "vue";
+import { createApp, defineComponent } from "vue";
 import App from "./App.vue";
 import router from "./router";
 
@@ -24,8 +24,11 @@ import "@ionic/vue/css/display.css";
 import "./theme/variables.css";
 
 import useFirebaseAuth from "./hooks/firebase-auth";
+
 const { authCheck } = useFirebaseAuth();
+
 const app = createApp(App).use(IonicVue);
+
 authCheck()
   .then(() => {
     app.use(router);

@@ -21,7 +21,7 @@
 
       <span v-if="!volumeInfo.authors">No authors to display</span>
       <span v-else>
-        By
+        Door
         <span v-for="(author, index) in volumeInfo.authors" :key="index">
           <em>
             {{
@@ -75,26 +75,16 @@ export default {
     },
   },
   methods: {
-    greet(event) {
+    greet(e) {
       console.log(this.myArray);
       console.log("hallo");
       // `this` inside methods point to the Vue instance
       alert("Hello " + this.volumeInfo.title + "!");
       const bookInfo = this.volumeInfo;
       this.myArray.push(bookInfo);
-      localStorage.setItem(["items"], JSON.stringify(this.storedData));
-    },
-    getColor() {
-      const colorsArray = [
-        "primary",
-        "secondary",
-        "danger",
-        "warning",
-        "success",
-      ];
-      const random =
-        colorsArray[Math.floor(Math.random() * colorsArray.length)];
-      return random;
+      localStorage.setItem(["items"], JSON.stringify(this.myArray));
+      console.log("doing a thing");
+      this.$emit('itemadded');
     },
   },
 };

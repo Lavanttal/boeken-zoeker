@@ -46,7 +46,7 @@
 
 <script>
 import axios from "axios";
-import BookList from "@/components/BookList";
+import BookList from "../components/BookList";
 import { defineComponent } from "vue";
 import {
   IonPage,

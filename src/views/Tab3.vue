@@ -13,20 +13,54 @@
       </ion-header>
 
       <ion-list>
-        
-        <ion-card v-for="(items, id) in list" :key="id">
-          <span>Boek #{{ id + 1 }}</span>
+        <ion-card
+          shape="round"
+          v-for="(items, id) in list"
+          :key="id"
+          @itemadded="this.getItems"
+        >
+          <span v-if="!items.title">No authors to display</span>
+
+          <h4 style="margin:10px;">Boek {{ id + 1 }}</h4>
           <ion-card-header>
             <ion-card-title>
               {{ items.title }}
             </ion-card-title>
+            <span v-if="!items.authors">No authors to display</span>
+            <span v-else>
+              Door
+              <span v-for="author in items.authors" :key="author">
+                <em>
+                  {{
+                    index + 1 !== items.authors.length &&
+                    index + 1 !== items.authors.length - 1
+                      ? author
+                      : index + 1 == book.items.authors.length &&
+                        index + 1 !== 1
+                      ? " and " + author
+                      : author
+                  }}
+                </em>
+              </span>
+            </span>
             <ion-card-subtitle>
-              {{ items.authors }}
+              Pagina's: {{ items.pageCount }}
+            </ion-card-subtitle>
+            <ion-card-subtitle> Taal: {{ items.language }} </ion-card-subtitle>
+
+            <ion-card-subtitle>
+              Book/E-book: {{ items.printType }}
             </ion-card-subtitle>
           </ion-card-header>
+          <ion-button shape="round" fill="outline"
+            >Meer informatie en preview</ion-button
+            >
+          <ion-button style="margin: 10px; padding:1px;" color="danger" shape="round">Delete</ion-button>
+
+
+          <br />
         </ion-card>
       </ion-list>
-      <h1>hoi</h1>
     </ion-content>
   </ion-page>
 </template>
@@ -46,14 +80,22 @@ export default {
     return {
       list: [],
       showDefault: true,
+      interval: null,
+      imageUrl: "",
     };
   },
-  beforeMount() {
+  created() {
+    this.interval = setInterval(this.getItems, 3000);
+  },
+  beforeUnmount() {
+    clearInterval(this.interval);
+  },
+  mounted() {
     this.getItems();
   },
   methods: {
     getItems() {
-      const storedData = localStorage.getItem("items");
+      const storedData = localStorage.getItem(["items"]);
       console.log("storedData: ", JSON.parse(storedData));
       if (storedData) {
         const ArrayData = JSON.parse(storedData);
@@ -61,7 +103,6 @@ export default {
         console.log("JA");
       } else {
         this.list = [];
-        alert("NEE");
       }
     },
   },
