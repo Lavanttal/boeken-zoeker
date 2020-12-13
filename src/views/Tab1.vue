@@ -25,7 +25,7 @@
       <ion-item>
         <ion-button
           v-on:click="changeColor"
-          color="light"
+          color="primary"
           shape="round"
           style="height: 35px;width: 35px;"
         >
