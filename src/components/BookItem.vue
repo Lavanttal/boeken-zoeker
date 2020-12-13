@@ -79,7 +79,6 @@ export default {
       console.log(this.myArray);
       console.log("hallo");
       // `this` inside methods point to the Vue instance
-      alert("Hello " + this.volumeInfo.title + "!");
       const bookInfo = this.volumeInfo;
       this.myArray.push(bookInfo);
       localStorage.setItem(["items"], JSON.stringify(this.myArray));

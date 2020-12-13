@@ -22,6 +22,19 @@
           </ion-card-header>
         </ion-card-content>
       </ion-card>
+      <ion-item>
+        <ion-button
+          v-on:click="changeColor"
+          color="light"
+          shape="round"
+          style="height: 35px;width: 35px;"
+        >
+          <ion-icon :icon="moon"></ion-icon>
+        </ion-button>
+        <ion-text style="font-size: 20px;margin-left:10px;text-align: center;"
+          >Dark Modus</ion-text
+        >
+      </ion-item>
     </ion-content>
   </ion-page>
 </template>
@@ -29,6 +42,7 @@
 <script>
 import axios from "axios";
 import { defineComponent } from "vue";
+import { moon } from "ionicons/icons";
 import {
   IonPage,
   IonHeader,
@@ -41,10 +55,19 @@ export default defineComponent({
   beforeMount() {
     this.bestSeller();
   },
+
   data() {
-    return {};
+    return {
+      moon,
+    };
   },
+
   methods: {
+    changeColor(event) {
+      console.log("switched theme");
+      const darkToggler = document.getElementById("darkToggler");
+      darkToggler.classList.toggle("light");
+    },
     bestSeller() {
       axios
         .get(

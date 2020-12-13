@@ -1,5 +1,5 @@
 <template>
-  <ion-app>
+  <ion-app id="darkToggler">
     <ion-router-outlet />
   </ion-app>
 </template>

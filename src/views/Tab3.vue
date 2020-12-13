@@ -52,11 +52,18 @@
               Book/E-book: {{ items.printType }}
             </ion-card-subtitle>
           </ion-card-header>
-          <ion-button shape="round" fill="outline"
-            >Meer informatie en preview</ion-button
+          <a :href="items.previewLink">
+            <ion-button style="margin: 10px" shape="round" fill="outline"
+              >Koop / meer informatie</ion-button
             >
-          <ion-button style="margin: 10px; padding:1px;" color="danger" shape="round">Delete</ion-button>
-
+          </a>
+          <div class="trash">
+            <ion-icon
+              :icon="trashOutline"
+              @click="removeItem"
+              style="margin-top: 9px; margin-right: 10px;position: absolute; top: 0px; right: 0px;font-size: 30px;"
+            />
+          </div>
 
           <br />
         </ion-card>
@@ -74,7 +81,8 @@ import {
   IonList,
   IonContent,
 } from "@ionic/vue";
-
+import { IonIcon } from "@ionic/vue";
+import { trashOutline } from "ionicons/icons";
 export default {
   data() {
     return {
@@ -82,6 +90,7 @@ export default {
       showDefault: true,
       interval: null,
       imageUrl: "",
+      trashOutline,
     };
   },
   created() {
@@ -94,6 +103,13 @@ export default {
     this.getItems();
   },
   methods: {
+    removeItem(id) {
+      const listStorage = localStorage.getItem("items");
+      const newList = JSON.parse(listStorage);
+      newList.splice(id, 1);
+      localStorage.setItem("items", JSON.stringify(newList));
+      this.getItems();
+    },
     getItems() {
       const storedData = localStorage.getItem(["items"]);
       console.log("storedData: ", JSON.parse(storedData));
