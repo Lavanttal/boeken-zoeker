@@ -7,11 +7,11 @@
     </ion-header>
     <ion-content class="ion-padding">
       <ion-item>
-        <ion-label>Username</ion-label>
+        <ion-label>Gebruikersnaam</ion-label>
         <ion-input name="username" type="text" placeholder="Username" @ionChange="handleChange" />
       </ion-item>
       <ion-item>
-        <ion-label>Password</ion-label>
+        <ion-label>Wachtwoord</ion-label>
         <ion-input
           name="password"
           type="password"
@@ -73,7 +73,7 @@ export default defineComponent({
     const handleAlert = (message: string, isError = false) => {
       alertController
         .create({
-          header: isError ? "Error Message" : "Notice",
+          header: isError ? "Foutmelding" : "Notice",
           message: message,
           buttons: ["OK"],
         })
