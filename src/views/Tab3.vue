@@ -57,6 +57,22 @@
               >Koop / meer informatie</ion-button
             >
           </a>
+          <ion-item>
+            <ion-label>Status</ion-label>
+            <ion-select
+              @ionChange="storeValues(options)"
+              v-model="options"
+              placeholder="Select One"
+            >
+              <ion-select-option
+                v-for="option in options"
+                v-bind:value="{ id: option.id, text: option.name }"
+                v-bind:key="option"
+              >
+                {{ option.name }}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
           <div class="trash">
             <ion-icon
               :icon="trashOutline"
@@ -81,11 +97,16 @@ import {
   IonList,
   IonContent,
 } from "@ionic/vue";
-import { IonIcon } from "@ionic/vue";
 import { trashOutline } from "ionicons/icons";
 export default {
   data() {
     return {
+      selected: "",
+      options: [
+        { id: 1, name: "Gelezen" },
+        { id: 2, name: "Nog niet gelezen" },
+        { id: 3, name: "C" },
+      ],
       list: [],
       showDefault: true,
       interval: null,
@@ -95,6 +116,7 @@ export default {
   },
   created() {
     this.interval = setInterval(this.getItems, 3000);
+    //this.options = localStorage.getItem("option");
   },
   beforeUnmount() {
     clearInterval(this.interval);
@@ -103,6 +125,11 @@ export default {
     this.getItems();
   },
   methods: {
+    storeValues({options}) {
+      console.log("im being")
+      console.log("name" +options);
+      const selected = localStorage.setItem("option", options); // String
+    },
     removeItem(id) {
       const listStorage = localStorage.getItem("items");
       const newList = JSON.parse(listStorage);
