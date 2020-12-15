@@ -11,16 +11,33 @@
           <ion-title size="large">Home</ion-title>
         </ion-toolbar>
       </ion-header>
+
       <ion-card>
         <ion-card-content>
           <ion-card-header>
-            <h1>Meest verkochte boek vandaag:</h1>
-            <h2>{{ bestSellers }}</h2>
+            <ion-card-title>Meest verkochte boek vandaag:</ion-card-title>
+            <ion-card-title>{{ bestSellers }}</ion-card-title>
+            <br />
+            <img :src="bestSellersImage" />
             <h2>Auteur: {{ bestSellersAuthor }}</h2>
             <p>ISBN: {{ bestSellersISBN }}</p>
-            <img :src="bestSellersImage" />
+            <br />
+            <a :href="bestSellersBuy">
+              <ion-button style="margin:-5px" color="success" shape="round"
+                >Koop</ion-button
+              >
+            </a>
+            <br />
           </ion-card-header>
         </ion-card-content>
+      </ion-card>
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Quote van de dag</ion-card-title>
+          <p>"{{ quote }}"</p>
+          <p>Door: {{ quoteAuthor }}</p>
+          <p>Geleverd door: They Said So</p>
+        </ion-card-header>
       </ion-card>
       <ion-item>
         <ion-button
@@ -76,9 +93,11 @@ export default defineComponent({
         .then((response) => {
           console.log(response.data.results[0]);
           this.bestSellers = response.data.results[0].book_details[0].title;
+          this.bestSellersBuy = response.data.results[0].amazon_product_url;
           this.bestSellersAuthor =
             response.data.results[0].book_details[0].author;
           this.bestSellersISBN = response.data.results[0].isbns[1].isbn13;
+          console.log(response.data.results[1]);
           console.log(this.bestSellers);
           axios
             .get(
@@ -87,8 +106,17 @@ export default defineComponent({
             .then((response) => {
               this.bestSellersImage =
                 response.data.items[0].volumeInfo.imageLinks.thumbnail;
+              this.bestSellersImage2 =
+                response.data.items[1].volumeInfo.imageLinks.thumbnail;
               console.log(this.bestSellersImage);
             });
+          axios.get(`https://quotes.rest/qod?language=en`).then((response) => {
+            console.log(response);
+            this.quote = response.data.contents.quotes[0].quote;
+            this.quoteAuthor = response.data.contents.quotes[0].author;
+
+            console.log(this.quote);
+          });
         });
     },
   },

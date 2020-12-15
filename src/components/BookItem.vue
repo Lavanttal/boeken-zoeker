@@ -18,7 +18,6 @@
     <ion-card-content>
       <ion-card-title>{{ volumeInfo.title }}</ion-card-title>
       <ion-label>{{ volumeInfo.description }}</ion-label>
-
       <span v-if="!volumeInfo.authors">No authors to display</span>
       <span v-else>
         Door
@@ -35,6 +34,8 @@
           </em>
         </span>
       </span>
+      <br />
+      <ion-label>Rating: {{ volumeInfo.maturityRating }}</ion-label>
       <br />
       <ion-button
         v-on:click="greet"
@@ -83,7 +84,7 @@ export default {
       this.myArray.push(bookInfo);
       localStorage.setItem(["items"], JSON.stringify(this.myArray));
       console.log("doing a thing");
-      this.$emit('itemadded');
+      this.$emit("itemadded");
     },
   },
 };
