@@ -28,6 +28,18 @@
               >
             </a>
             <br />
+            <br />
+            <a
+              :href="
+                'http://twitter.com/share?text=Vandaag is het meest verkochte boek: ' +
+                  this.bestSellers +
+                  ' via BoekenZoeker'
+              "
+            >
+              <ion-button style="margin:-5px" color="secondary" shape="round"
+                >Deel op Twitter</ion-button
+              >
+            </a>
           </ion-card-header>
         </ion-card-content>
       </ion-card>
@@ -37,6 +49,17 @@
           <p>"{{ quote }}"</p>
           <p>Door: {{ quoteAuthor }}</p>
           <p>Geleverd door: They Said So</p>
+          <a
+            :href="
+              'http://twitter.com/share?text=Quote van de dag: ' + 
+              quote +
+                ' via BoekenZoeker'
+            "
+          >
+            <ion-button style="margin:-5px" color="secondary" shape="round"
+              >Deel op Twitter</ion-button
+            >
+          </a>
         </ion-card-header>
       </ion-card>
       <ion-item>
@@ -86,6 +109,8 @@ export default defineComponent({
       darkToggler.classList.toggle("light");
     },
     bestSeller() {
+      const TwitterURL = "http://twitter.com/share?text=textgoeshere";
+      console.log(TwitterURL);
       axios
         .get(
           `https://api.nytimes.com/svc/books/v3/lists.json?list-name=hardcover-fiction&api-key=Y6JSCmMtdMzP8yqnqX0mL5C324Ec3jHY`
@@ -99,6 +124,7 @@ export default defineComponent({
           this.bestSellersISBN = response.data.results[0].isbns[1].isbn13;
           console.log(response.data.results[1]);
           console.log(this.bestSellers);
+
           axios
             .get(
               `https://www.googleapis.com/books/v1/volumes?q=isbn:${this.bestSellersISBN}`

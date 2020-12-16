@@ -57,20 +57,18 @@
               >Koop / meer informatie</ion-button
             >
           </a>
+
           <ion-item>
             <ion-label>Status</ion-label>
             <ion-select
-              @ionChange="storeValues(options)"
+              @ionChange="store"
               v-model="options"
-              placeholder="Select One"
+              :placeholder="this.myArray[id]"
             >
-              <ion-select-option
-                v-for="option in options"
-                v-bind:value="{ id: option.id, text: option.name }"
-                v-bind:key="option"
+              <ion-select-option value="Gelezen">Gelezen</ion-select-option>
+              <ion-select-option value="Nog niet gelezen"
+                >Nog niet gelezen</ion-select-option
               >
-                {{ option.name }}
-              </ion-select-option>
             </ion-select>
           </ion-item>
           <div class="trash">
@@ -102,12 +100,9 @@ export default {
   data() {
     return {
       selected: "",
-      options: [
-        { id: 1, name: "Gelezen" },
-        { id: 2, name: "Nog niet gelezen" },
-        { id: 3, name: "C" },
-      ],
       list: [],
+      listTwo: [],
+      savedName: [],
       showDefault: true,
       interval: null,
       imageUrl: "",
@@ -116,19 +111,34 @@ export default {
   },
   created() {
     this.interval = setInterval(this.getItems, 3000);
-    //this.options = localStorage.getItem("option");
   },
   beforeUnmount() {
     clearInterval(this.interval);
   },
   mounted() {
     this.getItems();
+    if (localStorage.options) {
+      this.savedName = localStorage.options;
+    }
+    this.myArray = [];
+    const storedData2 = localStorage.getItem(["options"]);
+    if (storedData2) {
+      const ArrayData2 = JSON.parse(storedData2);
+      this.myArray = ArrayData2;
+    }
   },
   methods: {
-    storeValues({options}) {
-      console.log("im being")
-      console.log("name" +options);
-      const selected = localStorage.setItem("option", options); // String
+    store(event) {
+      const name = event.detail.value;
+      // console.log("name" + name);
+      // const selected = localStorage.setItem(["options"], name);
+
+      console.log(this.myArray);
+      console.log("hallo");
+      // `this` inside methods point to the Vue instance
+      this.myArray.push(name);
+      localStorage.setItem("options", JSON.stringify(this.myArray));
+      console.log("test" + this.myArray);
     },
     removeItem(id) {
       const listStorage = localStorage.getItem("items");
@@ -146,6 +156,15 @@ export default {
         console.log("JA");
       } else {
         this.list = [];
+      }
+      const storedData2 = localStorage.getItem("options");
+      console.log("storedData2: ", JSON.parse(storedData2));
+      if (storedData2) {
+        const ArrayData2 = JSON.parse(storedData);
+        this.listTwo = ArrayData2;
+        console.log("JA status" + this.listTwo);
+      } else {
+        this.listTwo = [];
       }
     },
   },
