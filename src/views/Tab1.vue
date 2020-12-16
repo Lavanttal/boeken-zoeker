@@ -72,7 +72,7 @@
           <ion-icon :icon="moon"></ion-icon>
         </ion-button>
         <ion-text style="font-size: 20px;margin-left:10px;text-align: center;"
-          >Dark Modus</ion-text
+          >Dark theme toggle</ion-text
         >
       </ion-item>
     </ion-content>
@@ -106,7 +106,7 @@ export default defineComponent({
     changeColor(event) {
       console.log("switched theme");
       const darkToggler = document.getElementById("darkToggler");
-      darkToggler.classList.toggle("light");
+      darkToggler.classList.toggle("dark");
     },
     bestSeller() {
       const TwitterURL = "http://twitter.com/share?text=textgoeshere";

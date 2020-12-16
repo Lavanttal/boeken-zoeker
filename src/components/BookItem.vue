@@ -18,7 +18,7 @@
     <ion-card-content>
       <ion-card-title>{{ volumeInfo.title }}</ion-card-title>
       <ion-label>{{ volumeInfo.description }}</ion-label>
-      <span v-if="!volumeInfo.authors">No authors to display</span>
+      <span v-if="!volumeInfo.authors">Geen auteur(s) bekend</span>
       <span v-else>
         Door
         <span v-for="(author, index) in volumeInfo.authors" :key="index">

@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">BoekenZoeker</string>
+    <string name="title_activity_main">BoekenZoeker</string>
+    <string name="package_name">com.rf.BoekenZoeker</string>
+    <string name="custom_url_scheme">com.rf.BoekenZoeker</string>
+</resources>

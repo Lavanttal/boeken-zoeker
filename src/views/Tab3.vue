@@ -19,14 +19,14 @@
           :key="id"
           @itemadded="this.getItems"
         >
-          <span v-if="!items.title">No authors to display</span>
+          <span v-if="!items.title">Geen auteur(s) bekend</span>
 
           <h4 style="margin:10px;">Boek {{ id + 1 }}</h4>
           <ion-card-header>
             <ion-card-title>
               {{ items.title }}
             </ion-card-title>
-            <span v-if="!items.authors">No authors to display</span>
+            <span v-if="!items.authors">Geen auteur(s) bekend</span>
             <span v-else>
               Door
               <span v-for="author in items.authors" :key="author">
@@ -68,6 +68,9 @@
               <ion-select-option value="Gelezen">Gelezen</ion-select-option>
               <ion-select-option value="Nog niet gelezen"
                 >Nog niet gelezen</ion-select-option
+              >
+              <ion-select-option value="Momenteel aan het lezen"
+                >Aan het lezen</ion-select-option
               >
             </ion-select>
           </ion-item>
@@ -142,9 +145,17 @@ export default {
     },
     removeItem(id) {
       const listStorage = localStorage.getItem("items");
+      const listStorage2 = localStorage.getItem("options");
+
       const newList = JSON.parse(listStorage);
+      const newList2 = JSON.parse(listStorage2);
+
       newList.splice(id, 1);
+      newList2.splice(id, 1);
+
       localStorage.setItem("items", JSON.stringify(newList));
+      localStorage.setItem("options", JSON.stringify(newList2));
+
       this.getItems();
     },
     getItems() {
