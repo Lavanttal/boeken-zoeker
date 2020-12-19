@@ -16,6 +16,15 @@
           <ion-icon :icon="book" />
           <ion-label>Boekenplank</ion-label>
         </ion-tab-button>
+        <ion-tab-button tab="path1" href="/tabs/tab1"
+          v-on:click="changeColor"
+          color="primary"
+          shape="round"
+          style="height: 35px;width: 35px;"
+        >
+          <ion-icon :icon="moon"></ion-icon>
+
+        </ion-tab-button>
       </ion-tab-bar>
     </ion-tabs>
   </ion-page>
@@ -23,13 +32,14 @@
 
 <script>
 import { IonTabBar, IonTabButton, IonTabs, IonLabel, IonIcon, IonPage } from '@ionic/vue';
-import { ellipse, square, triangle, search, home, book, } from 'ionicons/icons';
+import { ellipse, square, triangle, search, home, book, moon, } from 'ionicons/icons';
 
 export default {
   name: 'Tabs',
   components: { IonLabel, IonTabs, IonTabBar, IonTabButton, IonIcon, IonPage, },
   setup() {
     return {
+      moon,
       ellipse, 
       square, 
       triangle,
@@ -38,5 +48,12 @@ export default {
       book,
     }
   },
+  methods: {
+    changeColor(event) {
+      console.log("switched theme");
+      const darkToggler = document.getElementById("darkToggler");
+      darkToggler.classList.toggle("dark");
+    },
+  }
 }
 </script>

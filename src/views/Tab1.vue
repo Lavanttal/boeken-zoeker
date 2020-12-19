@@ -8,10 +8,11 @@
     <ion-content :fullscreen="true">
       <ion-header collapse="condense">
         <ion-toolbar>
-          <ion-title size="large">Home</ion-title>
+          <ion-title size="large">Home</ion-title> 
         </ion-toolbar>
       </ion-header>
-
+   <ion-item>
+      </ion-item>
       <ion-card>
         <ion-card-content>
           <ion-card-header>
@@ -62,19 +63,6 @@
           </a>
         </ion-card-header>
       </ion-card>
-      <ion-item>
-        <ion-button
-          v-on:click="changeColor"
-          color="primary"
-          shape="round"
-          style="height: 35px;width: 35px;"
-        >
-          <ion-icon :icon="moon"></ion-icon>
-        </ion-button>
-        <ion-text style="font-size: 20px;margin-left:10px;text-align: center;"
-          >Dark theme toggle</ion-text
-        >
-      </ion-item>
     </ion-content>
   </ion-page>
 </template>
