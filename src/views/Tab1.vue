@@ -99,6 +99,13 @@ export default defineComponent({
   data() {
     return {
       moon,
+      bestSellers: "",
+      bestSellersBuy: "",
+      bestSellersAuthor: "",
+      bestSellersISBN: "",
+      bestSellersImage: "",
+      quote: "",
+      quoteAuthor: "",  
     };
   },
 
@@ -132,8 +139,6 @@ export default defineComponent({
             .then((response) => {
               this.bestSellersImage =
                 response.data.items[0].volumeInfo.imageLinks.thumbnail;
-              this.bestSellersImage2 =
-                response.data.items[1].volumeInfo.imageLinks.thumbnail;
               console.log(this.bestSellersImage);
             });
           axios.get(`https://quotes.rest/qod?language=en`).then((response) => {
