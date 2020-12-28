@@ -8,18 +8,27 @@
     <ion-content class="ion-padding">
       <ion-item>
         <ion-label>Gebruikersnaam</ion-label>
-        <ion-input name="username" type="text" placeholder="Username" @ionChange="handleChange" />
+        <ion-input
+          name="username"
+          type="text"
+          placeholder="Gebruikersnaam"
+          @ionChange="handleChange"
+        />
       </ion-item>
       <ion-item>
         <ion-label>Wachtwoord</ion-label>
         <ion-input
           name="password"
           type="password"
-          placeholder="Password"
+          placeholder="Wachtwoord"
           @ionChange="handleChange"
         />
       </ion-item>
       <ion-button @click="doLogin">LOGIN</ion-button>
+      <ion-button href="/signup">Account maken</ion-button>
+      <br />
+      <br />
+      <ion-router-link href="/forgot-password">Wachtwoord vergeten?</ion-router-link>
     </ion-content>
   </ion-page>
 </template>
@@ -88,7 +97,7 @@ export default defineComponent({
       try {
         const { username, password } = credentials.value;
         await state.login(username, password);
-        router.push({name : "tab1", replace: true });
+        router.push({ name: "tab1", replace: true });
       } catch (error) {
         console.log(error);
         handleAlert(error.message, true);
