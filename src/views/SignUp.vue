@@ -72,6 +72,13 @@ export default {
         .auth()
         .createUserWithEmailAndPassword(this.email, this.password)
         .then((user) => {
+            alertController
+        .create({
+          header: "Fantastisch",
+          message: 'Account geregistreerd! Je kunt nu de volledige app gebruiken',
+          buttons: ["OK"],
+        })
+        .then((t) => t.present());
           this.$router.replace("/login");
         })
         .catch((err) => {

@@ -10,25 +10,24 @@
         <p>
           Vul hieronder het e-mail adres in dat bij je account hoort. Hiermee
           kun je je wachtwoord opnieuw instellen!
-        </p></ion-item
-      >
+        </p>
+      </ion-item>
 
       <br />
       <ion-item>
         <form @submit.prevent="forgetPassword">
           <div class="form-group">
             <ion-label>Email</ion-label>
-            <ion-input
-              type="email"
-              v-model="user.email"
-            />
+            <ion-input type="email" v-model="user.email" />
           </div>
-          <ion-button type="submit"
-            >Wachtwoord opnieuw instellen</ion-button
-          >
+          <ion-button type="submit">Wachtwoord opnieuw instellen</ion-button>
         </form>
       </ion-item>
-    </ion-content>
+      <br />
+              <ion-button color="primary" href="/login">
+          Ga terug
+        </ion-button>
+            </ion-content>
   </ion-page>
 </template>
 
