@@ -104,12 +104,14 @@ export default {
     return {
       selected: "",
       list: [],
+      id: "",
       listTwo: [],
       savedName: [],
       showDefault: true,
       interval: null,
       imageUrl: "",
       trashOutline,
+      indexOfItem: [],
     };
   },
   created() {
@@ -139,7 +141,10 @@ export default {
       console.log(this.myArray);
       console.log("hallo");
       // `this` inside methods point to the Vue instance
-      this.myArray.push(name);
+      //this.myArray.push(name);
+      this.myArray.splice(this.indexOfItem, this.id, name);
+      //  this.myArray.push(name);
+
       localStorage.setItem("options", JSON.stringify(this.myArray));
       console.log("test" + this.myArray);
     },
